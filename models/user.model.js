@@ -1,13 +1,13 @@
 import mongoose, { mongo } from "mongoose";
-import validator, { validate } from "validator";
+import validator  from "validator";
  const userSchema=new mongoose.Schema({
-    Firstname:{
+    firstName:{
         type:String,
         require:true,
         min:3,
         max:15,
     },
-    lastname:{
+    lastName:{
         type:String,
         require:true,
         min:3,
@@ -24,6 +24,13 @@ import validator, { validate } from "validator";
         require:true,
         min:[11,"provide a valid phone number"],
         max:[11,"provide a valid phone number "]
+    },
+    time:{
+        type:String
+    },
+    Date:{
+        type:Date,
+        default:Date.now()
     }
 
  },{timestamps:true})

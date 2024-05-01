@@ -1,23 +1,22 @@
 import mongoose from "mongoose";
 import { user} from "../models/user.model.js";
-import ApiError from "../utilities/api.error.js"
+import {ApiError} from "../utilities/api.error.js"
 import { ApiResponse } from "../utilities/api.response.js";
-import asynchandler from "../utilities/asynchandler.js";
-import validator , {validate} from "validator";
+import asynchandler from "../utilities/asynchandler.js"
+import validator from "validator";
 
 const userdetails = asynchandler(async (req, res, next) => {
-   const { Firstname, lastname, email, PhoneNumber } = req.body
+   const { firstName, lastName, email, PhoneNumber } = req.body
 
-   // if(!(Firstname && lastname && email && PhoneNumber)){
-   //    throw new ApiError(400,"please provid all details ")}
+   if(!(firstName && lastName && email && PhoneNumber)){
+      throw new ApiError(400,"please provid all details ")}
 
 
-   if ([Firstname, lastname, email, PhoneNumber].some(feild => feild?.trim() == "")) {
-      throw new ApiError(400, "please provid all details ")
-   }
+   // if ([Firstname, lastname, email, PhoneNumber].some(feild => feild?.trim() === "")) {
+   //    throw new ApiError(400, "please provid all details ")}
 
    const existinguser = await user.find({
-      $or: [{ Firstname }, { lastname }, { email }]
+      $or: [{ firstName }, { lastName }, { email }]
    })
    if (existinguser) {
       throw new ApiError(400, "user already exist")
@@ -25,8 +24,8 @@ const userdetails = asynchandler(async (req, res, next) => {
 
    try {
       const newuser = await user.create({
-         Firstname,
-         lastname,
+         firstName,
+         lastName,
          email,
          PhoneNumber
       })

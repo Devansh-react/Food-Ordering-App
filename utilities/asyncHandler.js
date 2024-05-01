@@ -4,4 +4,4 @@ const asynchandeler =(reqhandler)=>{
 
     }
 }
-export {asynchandeler}
+export default asynchandeler

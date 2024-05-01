@@ -4,6 +4,7 @@ import cors from "cors";
 import { ApiError } from "./utilities/api.error.js";
 import route from "./router/userRoute.js";
 import dotenv from "dotenv";
+import connectdatabase from "./db/db.js";
 
 const app=express()
 dotenv.config({
@@ -19,9 +20,10 @@ dotenv.config({
  app.use(express.json())
  app.use(express.urlencoded({extended:true}))
 
-app.listen(process.env.PORT || 8000,()=>{
-    console.log(`app is running on port ${process.env.PORT || 8000}}`)
+app.listen(process.env.PORT || 7000,()=>{
+    console.log(`app is running on port ${process.env.PORT || 7000}}`)
 })
 app.use('/user',route)
+connectdatabase()
 
 export default app;
